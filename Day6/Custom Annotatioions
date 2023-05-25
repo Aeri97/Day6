@@ -1,0 +1,67 @@
+//lets create an Annotation named as CricketPlayer with age,country
+
+
+// we should let know the compiler that we are creating an Annotation
+// not an interface by adding @ at the starting of interface
+// the @ symbol  informs compiler that Annotation type is being is created not an interface
+
+
+import java.lang.annotation.*;
+
+// we use thus Target annotation to specify where to implement the Annotation that we created
+//ElementType.TYPE this is used to specify where the Annotation to be implemented Type means class
+//bY definng {ElementType.TYPE,ElementType.FIELD, ElementType.METHOD} we can use the Annotation every palce
+@Target({ElementType.TYPE,ElementType.FIELD, ElementType.METHOD})
+// we use Retention Annotation to reach till the compiler
+//RetentionPolicy.RUNTIME makes sure its reaches both compiler and jvm also
+//Runtime acts as both comment and also reaches to compiler and jvm
+@Retention(RetentionPolicy.RUNTIME)
+@interface  CricketPlayer
+{
+    int age() default 34;
+    String country() default  "India";
+
+}
+
+@CricketPlayer
+class  Virat
+{
+    @CricketPlayer
+    int runs;
+    int innings;
+
+    public int getRuns() {
+        return runs;
+    }
+
+    public void setRuns(int runs) {
+        this.runs = runs;
+    }
+
+    public int getInnings() {
+        return innings;
+    }
+
+    public void setInnings(int innings) {
+        this.innings = innings;
+    }
+}
+public class Main
+{
+    public static void main(String[] args)
+    {
+         Virat v= new Virat();
+         v.setRuns(100);
+         v.setInnings(200);
+         System.out.println(v.getRuns());
+        System.out.println(v.getInnings());
+        System.out.println("Annotation values are fetched below");       //fetching e values using reflection API
+          Class c = v.getClass();
+        Annotation an = c.getAnnotation(CricketPlayer.class);
+        CricketPlayer cp= (CricketPlayer) an;
+        System.out.println("Age  : "+cp.age());
+        System.out.println("Country " +cp.country());
+
+
+    }
+}
