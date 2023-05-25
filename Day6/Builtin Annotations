@@ -1,0 +1,47 @@
+
+@FunctionalInterface  // we use this annotation when we are defining a function interface
+interface Demo       // it indicates that an lambda expression is created using this interface so we cannot add anymore methods
+{
+    void disp();
+   // void add();
+
+}
+
+
+ class Animal
+ {
+     public void eat()
+     {
+         System.out.println("Animal eats");
+     }
+  public void animalAlwaysHuntsAndEat()
+  {
+
+  }
+ }
+ class Tiger extends Animal
+        {
+            @Override
+            public void eat()
+            {
+                System.out.println("tiger hunts and eats");
+            }
+
+            @Override   // this Annotation gives an error when we are not overriding properly
+                        //or when there are any mistakes during overriding the  method
+            public void animalAlwaysHuntsAndEat()
+            {
+
+            }
+        }
+
+public class Ann
+{
+    public void main(String[] args)
+    {
+       Demo  d = ()->{
+           System.out.println("lambda");
+       };
+
+    }
+}
